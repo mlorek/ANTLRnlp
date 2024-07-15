@@ -1,19 +1,27 @@
-group 'com.parser'
-version '1.0-SNAPSHOT'
-
 buildscript {
     repositories {
-        jcenter()
+//        jcenter()
+        mavenLocal()
+        maven{ url 'https://nexus.cloud.aws.tenablesecurity.com/content/groups/tenable-cloud/' }
     }
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.3'
+//        compile 'com.github.johnrengelman.shadow:shadow:8.1.1'
     }
+}
+
+plugins {
+    id 'java'
+    id 'antlr'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 apply plugin: 'antlr'
 apply plugin: 'application'
 apply plugin: 'java'
-apply plugin: 'com.github.johnrengelman.shadow'
+//apply plugin: 'com.github.johnrengelman.shadow'
+
+group 'com.parser'
+version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -34,9 +42,9 @@ compileJava.dependsOn generateGrammarSource
 allprojects {
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.12'
-        antlr "org.antlr:antlr4:4.7"
+        antlr "org.antlr:antlr4:4.13.1"
         compile group: 'org.antlr', name: 'antlr4', version: '4.7'
-        compile 'org.antlr:antlr4-runtime:4.7'
+        compile 'org.antlr:antlr4-runtime:4.13.1'
         compile "eu.crydee:syllable-counter:4.0.2"
         compile files('src/main/resources/StanfordPoSTagger/stanford-postagger.jar')
     }
